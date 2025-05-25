@@ -73,13 +73,16 @@ SELECT common_name FROM species
 
     -- Problem 6
 
-    SELECT species.common_name, sightings.sighting_time, rangers.name
+SELECT species.common_name, sightings.sighting_time, rangers.name
         FROM sightings 
             JOIN species USING(species_id)
             JOIN rangers USING (ranger_id)
-            ORDER BY sightings.sighting_time DESC;
+            ORDER BY sightings.sighting_time DESC LIMIT 2;
 
 -- Problem 7
+UPDATE species
+    SET conservation_status = 'Historic'
+    WHERE EXTRACT(YEAR FROM discovery_date) < 1800;
 
 
 -- Problem 8
@@ -88,3 +91,11 @@ SELECT sighting_id, CASE
     WHEN EXTRACT(HOUR FROM sighting_time) BETWEEN 12 AND 17  THEN  'Afternoon' 
     ELSE 'Evening'
 END As timeofday FROM sightings;
+
+-- Problem 9
+DELETE FROM rangers 
+    WHERE ranger_id NOT IN (
+        SELECT DISTINCT ranger_id FROM sightings
+    );
+
+SELECT * FROM sightings;
