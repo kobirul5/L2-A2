@@ -70,3 +70,21 @@ SELECT common_name FROM species
     WHERE species_id NOT IN(
         SELECT  species_id  FROM sightings
     );
+
+    -- Problem 6
+
+    SELECT species.common_name, sightings.sighting_time, rangers.name
+        FROM sightings 
+            JOIN species USING(species_id)
+            JOIN rangers USING (ranger_id)
+            ORDER BY sightings.sighting_time DESC;
+
+-- Problem 7
+
+
+-- Problem 8
+SELECT sighting_id, CASE 
+    WHEN EXTRACT(HOUR FROM sighting_time)< 12 THEN  'Morning' 
+    WHEN EXTRACT(HOUR FROM sighting_time) BETWEEN 12 AND 17  THEN  'Afternoon' 
+    ELSE 'Evening'
+END As timeofday FROM sightings;
