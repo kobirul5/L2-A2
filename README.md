@@ -1,4 +1,4 @@
-# PostgreSQL Interview Questions 
+# PostgreSQL Questions 
 
 <hr/>
 
